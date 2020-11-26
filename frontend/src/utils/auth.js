@@ -1,0 +1,82 @@
+export const BASE_URL = 'http://localhost:4000';
+
+export const login = (email, password) => {
+  return fetch(`${BASE_URL}/signin`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+    body: JSON.stringify({email, password})
+})
+    .then((res) => {
+      if (res.status === 200){
+        return res.json();
+      }
+      if (res.status === 400) {
+        console.log('Не передано одно из полей');
+        return false
+      }
+      if (res.status === 401) {
+        console.log('Пользователь с email не найден');
+        return false
+      }
+    })
+    .then((data) => {
+      if (data.token){
+        localStorage.setItem('jwt', data.token);
+        return data;
+      }
+    })
+    .catch((err) => console.log(err))
+};
+
+export const register = (email, password) => {
+  return fetch(`${BASE_URL}/signup`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+    body: JSON.stringify({email, password})
+  })
+  .then((res) => {
+    if (res.status === 201){
+      return res.json();
+    }
+    if (res.status === 400) {
+        console.log('Некорректно заполнено одно из полей');
+        return false
+    }
+  })
+  .catch((err) => console.log(err))
+}; 
+
+export const getContent = (token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    }
+  })
+  .then((res) => {
+    try {
+      if (res.status === 200) {
+        return res.json()
+      }
+      if (res.status === 400) {
+        throw new Error('Токен не передан или передан не в том формате');
+      }
+      if (res.status === 401) {
+        throw new Error('Переданный токен некорректен');
+      }
+    }
+    catch (e) {
+      console.log(e);
+      return e;
+    }
+  })
+  .then(data => {
+    return data;
+  })
+  .catch((err) => console.log(err))
+}

@@ -1,0 +1,7 @@
+@import url(_link/header__auth_link.css);
+@import url(_email/header__auth_email.css);
+@import url(_btn/header__auth_btn.css);
+
+.header__auth {
+    display: flex;
+}

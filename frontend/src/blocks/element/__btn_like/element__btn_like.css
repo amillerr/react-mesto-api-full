@@ -1,0 +1,15 @@
+.element__btn_like {
+	width: 21px;
+	height: 18px;
+	object-fit: cover;
+	background: transparent url('../../../images/button/like.svg') no-repeat;
+	border: none;
+  margin: 0 17px 3px 0;
+  cursor: pointer;
+  transition: .2s;
+  box-shadow: none;
+}
+
+.element__btn_like:hover {
+	opacity: .6;
+}

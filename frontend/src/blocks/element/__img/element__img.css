@@ -1,0 +1,11 @@
+.element__img {
+	flex-basis: 282px;
+	max-height: 282px;
+	object-fit: cover;
+	max-width: 100%;
+	align-self: stretch;
+}
+
+.element__img:hover {
+	cursor: pointer;
+}
