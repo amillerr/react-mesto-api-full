@@ -75,7 +75,7 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl:'http://localhost:4000',
+  baseUrl:'http://api.amillerr.students.nomoreparties.space/',
   headers: {
     'Authorization': localStorage.getItem('jwt'),
     'Content-Type': 'application/json'}
