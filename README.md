@@ -14,9 +14,9 @@ _____
 На сайте можно изменить данные профиля, добавить / удалить / лайкнуть изображения.
 ## Ссылки на проект
 
-Frontend: http://www.amillerr.students.nomoreparties.space
+Frontend: http://aksenov.students.nomoreparties.space
 
-Backend: http://api.amillerr.students.nomoreparties.space
+Backend: http://api.aksenov.students.nomoreparties.space
 
 ### Используемые технологии
 - Node.js
