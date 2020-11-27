@@ -39,16 +39,19 @@ export const register = (email, password) => {
     body: JSON.stringify({email, password})
   })
   .then((res) => {
-    if (res.status === 201){
-      return res.json();
-    }
-    if (res.status === 400) {
-        console.log('Некорректно заполнено одно из полей');
-        return false
+    try {
+      if (res.status !== 400){
+        return res.json();
+      }
+    } catch(err) {
+      throw new Error('Некорректно заполнено одно из полей')
     }
   })
-  .catch((err) => console.log(err))
-}; 
+  .then((res) => {
+    return res;
+  })
+  .catch((err) => console.log({message: "Некорректно заполнено одно из полей"}));
+};
 
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {

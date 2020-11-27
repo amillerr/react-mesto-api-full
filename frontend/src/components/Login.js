@@ -21,7 +21,6 @@ function Login(props) {
     props.onLogin (email, password);
   }
 
-
     return (
       <section className="auth">
         <form
@@ -32,7 +31,7 @@ function Login(props) {
           <fieldset className="auth__field">
             <input
               name="email"
-              type="text"
+              type="email"
               className="auth__input"
               value={email || ''}
               onChange={handleChangeEmail}
@@ -41,7 +40,7 @@ function Login(props) {
             />
             <input
               name="password"
-              type="text"
+              type="password"
               className="auth__input"
               value={password || ''}
               onChange={handleChangePassword}

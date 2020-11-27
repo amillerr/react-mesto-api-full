@@ -9,12 +9,14 @@ const ConflictError = require('../errors/conflict-error');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getUsers = (req, res, next) => {
+
   User.find({})
     .then((users) => res.send(users))
     .catch(next);
 };
 
 const getCurrentUser = (req, res, next) => {
+
   User.findById(req.params.userId)
     .then((user) => {
       if (!user) {
@@ -31,6 +33,7 @@ const getCurrentUser = (req, res, next) => {
 };
 
 const getUser = (req, res, next) => {
+
   User.findById(req.user)
     .then((user) => {
       if (!user) {
@@ -43,11 +46,7 @@ const getUser = (req, res, next) => {
 
 const createUser = (req, res, next) => {
   const {
-    name,
-    about,
-    avatar,
-    email,
-    password,
+    name, about, avatar, email, password,
   } = req.body;
 
   bcrypt.hash(password, 10)
@@ -56,15 +55,12 @@ const createUser = (req, res, next) => {
         .then((user) => {
           if (!user) {
             User.create({
-              name,
-              about,
-              avatar,
-              email,
-              password: hash,
+              name, about, avatar, email, password: hash,
             })
-              .then((user) => res.send({ email: user.email, _id: user._id }));
+              .then((user) => res.send( {email: user.email, _id: user._id} ));
+          } else {
+            throw new ConflictError('Пользователь с данным email уже существует');
           }
-          throw new ConflictError('Пользователь с данным email уже существует');
         })
         .catch(next);
     })
@@ -73,6 +69,7 @@ const createUser = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
+
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id },
@@ -85,6 +82,7 @@ const login = (req, res, next) => {
 
 const updateInfo = (req, res, next) => {
   const { name, about } = req.body;
+
   User.findByIdAndUpdate(req.user._id, { name, about }, {
     new: true,
     runValidators: true,
@@ -102,6 +100,7 @@ const updateInfo = (req, res, next) => {
 
 const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
+
   User.findByIdAndUpdate(req.user._id, { avatar }, {
     new: true,
     runValidators: true,

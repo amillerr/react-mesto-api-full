@@ -58,11 +58,11 @@ app.use(errorLogger);
 
 app.use(errors());
 
-app.use((err, req, res) => {
-  const { statusCode = 500, message } = err;
+app.use((error, req, res, next) => {
+  const { statusCode = 500, message } = error;
   res.status(statusCode).send({
     message: statusCode === 500
-      ? 'На сервере произошла ошибка'
+      ? 'Internal Server error'
       : message,
   });
 });

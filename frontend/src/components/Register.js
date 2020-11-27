@@ -29,7 +29,8 @@ function Register(props) {
           <fieldset className="auth__field">
           <input
             name="email"
-            type="text"
+            type="email"
+            pattern='\S+@\S+\.\S+'
             className="auth__input"
             value={email || ''}
             onChange={handleChangeEmail}
@@ -38,13 +39,14 @@ function Register(props) {
           />
           <input
             name="password"
-            type="text"
+            type="password"
+            pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$'
             className="auth__input"
             value={password || ''}
             onChange={handleChangePassword}
             required
             placeholder="Пароль"
-            minLength="6"
+            minLength="8"
           />
           </fieldset>
           <button
