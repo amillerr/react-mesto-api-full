@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.amillerr.students.nomoreparties.space/';
+export const BASE_URL = 'http://api.aksenov.students.nomoreparties.space';
 
 export const login = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
@@ -6,28 +6,31 @@ export const login = (email, password) => {
       headers: {
           'Content-Type': 'application/json'
       },
-    body: JSON.stringify({email, password})
-})
-    .then((res) => {
-      if (res.status === 200){
-        return res.json();
-      }
-      if (res.status === 400) {
-        console.log('Не передано одно из полей');
-        return false
-      }
-      if (res.status === 401) {
-        console.log('Пользователь с email не найден');
-        return false
+      body: JSON.stringify({ email, password })
+  })
+    .then(res => {
+      try {
+        if (res.ok) {
+          return res.json();
+        }
+        if (res.status === 400) {
+          throw new Error('Не верно заполнено одно из полей');
+        }
+        if (res.status === 401) {
+          throw new Error('Пользователь с данным email не найден ');
+        }
+      } catch (e) {
+        console.log(e)
+        return e;
       }
     })
     .then((data) => {
-      if (data.token){
+      if (data.token) {
         localStorage.setItem('jwt', data.token);
         return data;
       }
     })
-    .catch((err) => console.log(err))
+    .catch((error) => { return Promise.reject(error.message)})
 };
 
 export const register = (email, password) => {
@@ -50,7 +53,7 @@ export const register = (email, password) => {
   .then((res) => {
     return res;
   })
-  .catch((err) => console.log({message: "Некорректно заполнено одно из полей"}));
+  .catch((error) => console.log(error + {message: "Некорректно заполнено одно из полей"}));
 };
 
 export const getContent = (token) => {
@@ -81,5 +84,5 @@ export const getContent = (token) => {
   .then(data => {
     return data;
   })
-  .catch((err) => console.log(err))
+  .catch((error) => console.log(error))
 }
