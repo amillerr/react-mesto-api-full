@@ -61,7 +61,14 @@ class Api {
 
   likeCard(cardId, like) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: like ? "PUT" : "DELETE",
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._getStatus);
+  }
+
+  dislikeCard(cardId, like) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: "DELETE",
       headers: this._headers,
     }).then(this._getStatus);
   }

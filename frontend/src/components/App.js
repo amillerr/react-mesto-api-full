@@ -102,14 +102,22 @@
 
     function handleLikeCard(card) {
       const isLiked = card.likes.some(i => i._id === currentUser._id)
-
-      api.likeCard(card._id, !isLiked)
+    if (!isLiked) {
+      api.likeCard(card._id)
         .then((newCard) => {
           const newCards = cards.map((c) => c._id === card._id ? newCard : c)
           setCards(newCards)
         })
-        .catch(error => console.log(error))
+        .catch(error => console.log(error));
+    } else {
+      api.dislikeCard(card._id)
+      .then((newCard) => {
+        const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+        setCards(newCards);
+    })
+    .catch((error) =>  console.log(error));
     }
+  };
 
     function handleAddPlaceSubmit(item) {
       api.createCard(item)
