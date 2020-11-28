@@ -9,14 +9,12 @@ const ConflictError = require('../errors/conflict-error');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getUsers = (req, res, next) => {
-
   User.find({})
     .then((users) => res.send(users))
     .catch(next);
 };
 
 const getCurrentUser = (req, res, next) => {
-
   User.findById(req.params.userId)
     .then((user) => {
       if (!user) {
@@ -33,7 +31,6 @@ const getCurrentUser = (req, res, next) => {
 };
 
 const getUser = (req, res, next) => {
-
   User.findById(req.user)
     .then((user) => {
       if (!user) {
@@ -57,7 +54,8 @@ const createUser = (req, res, next) => {
             User.create({
               name, about, avatar, email, password: hash,
             })
-              .then((user) => res.send( {email: user.email, _id: user._id} ));
+              // eslint-disable-next-line no-shadow
+              .then((user) => res.send({ email: user.email, _id: user._id }));
           } else {
             throw new ConflictError('Пользователь с данным email уже существует');
           }

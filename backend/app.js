@@ -6,7 +6,7 @@ const { celebrate, Joi } = require('celebrate');
 const cors = require('cors');
 const { login, createUser } = require('./controllers/users');
 const routes = require('./routes/index');
-const auth = require('./middlewares/auth');
+
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
@@ -50,14 +50,13 @@ app.post('/signup', celebrate({
   }).unknown(true),
 }), createUser);
 
-app.use(auth);
-
 app.use('/', routes);
 
 app.use(errorLogger);
 
 app.use(errors());
 
+// eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
   const { statusCode = 500, message } = error;
   res.status(statusCode).send({
@@ -67,4 +66,4 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => console.log(`Сервер работает на ${PORT} порту`));
+app.listen(PORT);

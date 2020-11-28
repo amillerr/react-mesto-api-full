@@ -82,9 +82,9 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl:'http://api.aksenov.students.nomoreparties.space',
+  baseUrl:'https://api.aksenov.students.nomoreparties.space',
   headers: {
-    'Authorization': localStorage.getItem('jwt'),
+    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'}
 });
 

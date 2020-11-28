@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.aksenov.students.nomoreparties.space';
+export const BASE_URL = 'https://api.aksenov.students.nomoreparties.space';
 
 export const login = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {

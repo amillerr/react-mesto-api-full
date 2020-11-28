@@ -1,25 +1,19 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
+const auth = require('../middlewares/auth');
 const {
   getUsers, getCurrentUser, getUser, updateInfo, updateAvatar,
 } = require('../controllers/users');
 
-router.get('/users', getUsers);
+router.get('/users', auth, getUsers);
 
-router.get('/users/me',
-  celebrate({
-    body: Joi.object().keys({
-      name: Joi.string().required().min(2).max(30),
-      about: Joi.string().required().min(2).max(30),
-    }),
-  }),
-  getUser);
+router.get('/users/me', auth, getUser);
 
 router.get('/users/:userId', celebrate({
   body: Joi.object().keys({
     _id: Joi.string().length(24),
   }),
-}), getCurrentUser);
+}), auth, getCurrentUser);
 
 router.patch('/users/me', celebrate({
   body: Joi.object().keys({

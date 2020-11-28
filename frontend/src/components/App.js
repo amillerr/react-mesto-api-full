@@ -55,7 +55,7 @@
     function handleEditAvatarClick() {
       setIsEditAvatarPopupOpen(true);
     }
-    
+
     const handleConfirmRegister = (foo) => {
       setInfoTooltipPopup(true)
       setIsSuccess(foo)
@@ -101,7 +101,7 @@
     }
 
     function handleLikeCard(card) {
-      const isLiked = card.likes.some(i => i._id === currentUser._id)
+      const isLiked = card.likes.find(i => i._id === currentUser._id)
     if (!isLiked) {
       api.likeCard(card._id)
         .then((newCard) => {
@@ -117,7 +117,7 @@
     })
     .catch((error) =>  console.log(error));
     }
-  };
+  }
 
     function handleAddPlaceSubmit(item) {
       api.createCard(item)
@@ -203,9 +203,9 @@
                 />
               </Route>
 
-            <ProtectedRoute 
-              path="/" 
-              loggedIn={loggedIn} 
+            <ProtectedRoute
+              path="/"
+              loggedIn={loggedIn}
               component={Main}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
