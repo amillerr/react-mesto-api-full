@@ -5,9 +5,8 @@ const NotFoundError = require('../errors/notfound-error');
 
 router.use('/', usersRoutes);
 router.use('/', cardsRoutes);
-router.use('*', (req, res, next) => {
-  const error = new NotFoundError('Запрашиваемый ресурс не найден');
-  next(error);
+router.all('*', (req, res, next) => {
+  next(new NotFoundError('Запрашиваемый ресурс не найден'));
 });
 
 module.exports = router;

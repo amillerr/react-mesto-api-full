@@ -15,19 +15,14 @@ const getUsers = (req, res, next) => {
 };
 
 const getCurrentUser = (req, res, next) => {
-  User.findById(req.params.userId)
+  User.findById(req.params._id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Не найден пользователь с данным id');
       }
       return res.send({ data: user });
     })
-    .catch((error) => {
-      if (error.name === 'CastError') {
-        throw new RequestError('Ошибка. Повторите запрос');
-      }
-      next(error);
-    });
+    .catch(next);
 };
 
 const getUser = (req, res, next) => {
