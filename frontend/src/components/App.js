@@ -55,7 +55,7 @@
     function handleEditAvatarClick() {
       setIsEditAvatarPopupOpen(true);
     }
-    
+
     const handleConfirmRegister = (foo) => {
       setInfoTooltipPopup(true)
       setIsSuccess(foo)
@@ -203,9 +203,9 @@
                 />
               </Route>
 
-            <ProtectedRoute 
-              path="/" 
-              loggedIn={loggedIn} 
+            <ProtectedRoute
+              path="/"
+              loggedIn={loggedIn}
               component={Main}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
