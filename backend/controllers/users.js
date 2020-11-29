@@ -15,14 +15,19 @@ const getUsers = (req, res, next) => {
 };
 
 const getCurrentUser = (req, res, next) => {
-  User.findById(req.params._id)
+  User.findById(req.params.userId)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Не найден пользователь с данным id');
       }
       return res.send({ data: user });
     })
-    .catch(next);
+    .catch((error) => {
+      if (error.name === 'CastError') {
+        throw new RequestError('Ошибка. Повторите запрос');
+      }
+      next(error);
+    });
 };
 
 const getUser = (req, res, next) => {
@@ -44,12 +49,11 @@ const createUser = (req, res, next) => {
   bcrypt.hash(password, 10)
     .then((hash) => {
       User.findOne({ email })
-        .then((user) => {
-          if (!user) {
+        .then((someUser) => {
+          if (!someUser) {
             User.create({
               name, about, avatar, email, password: hash,
             })
-              // eslint-disable-next-line no-shadow
               .then((user) => res.send({ email: user.email, _id: user._id }));
           } else {
             throw new ConflictError('Пользователь с данным email уже существует');
