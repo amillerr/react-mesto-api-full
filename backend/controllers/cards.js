@@ -16,7 +16,7 @@ const createCard = (req, res, next) => {
     .then((card) => res.send({ card }))
     .catch((error) => {
       if (error.name === 'ValidationError') {
-        throw new RequestError('Ошибка. Повторите запрос');
+        next(new RequestError('Ошибка. Повторите запрос'));
       }
       next(error);
     });
