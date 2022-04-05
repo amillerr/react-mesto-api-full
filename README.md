@@ -1,7 +1,5 @@
 # Mesto
-#
 [![N|Solid](https://pictures.s3.yandex.net/animation_topic/logo.svg)](https://praktikum.yandex.ru/)
-
 # Проект Mesto на React с авторизацией и регистрацией
 
 # Описание проекта
