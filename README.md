@@ -1,22 +1,13 @@
 # Mesto
 #
-____
-
 [![N|Solid](https://pictures.s3.yandex.net/animation_topic/logo.svg)](https://praktikum.yandex.ru/)
 
 # Проект Mesto на React с авторизацией и регистрацией
-#
-_____
-#
+
 # Описание проекта
 
 Интерактивная страница, c возможностью регистрации и авторизации пользователя.
 На сайте можно изменить данные профиля, добавить / удалить / лайкнуть изображения.
-## Ссылки на проект
-
-Frontend: https://aksenov.students.nomoreparties.space
-
-Backend: https://api.aksenov.students.nomoreparties.space
 
 ### Используемые технологии
 - Node.js
